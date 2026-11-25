@@ -520,7 +520,8 @@ h2 {
   line-height: 1.5;
 }
 
-.exam-assignment {
+.exam-assignment,
+.exam-reschedule {
   margin-top: 7px;
   color: var(--muted);
   font-size: 0.83rem;

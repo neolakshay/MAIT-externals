@@ -117,17 +117,19 @@ test('EE4, ME4 and EE4/ME4 display their own final datesheet schedules', async (
   await expect(page.locator('.shared-time')).toHaveCount(0)
 })
 
-test('E3 displays both exams exactly as listed in the final datesheet', async ({ page }) => {
+test('E3 shows the rescheduled Graphics exam and the unchanged Physics exam', async ({ page }) => {
   await page.goto('./?group=E3')
-  await expect(page.getByText('Unconfirmed exam times', { exact: false })).toHaveCount(0)
-  const conflicts = page.locator('.exam-card').filter({ has: page.locator('time[datetime="2026-12-04"]') })
-  await expect(conflicts).toHaveCount(2)
-  await expect(conflicts.first()).toContainText('Engineering Physics Lab')
-  await expect(conflicts.first()).toContainText('Room 515')
-  await expect(conflicts.last()).toContainText('Engineering Graphics-I Lab')
-  await expect(conflicts.last()).toContainText('Room 227')
-  await expect(conflicts.first()).toContainText('2:00 PM – 4:30 PM')
-  await expect(conflicts.last()).toContainText('2:00 PM – 4:30 PM')
+  const graphics = page.locator('.exam-card').filter({ hasText: 'Engineering Graphics-I Lab' })
+  await expect(graphics.locator('time')).toHaveAttribute('datetime', '2026-11-30')
+  await expect(graphics).toContainText('Room 227')
+  await expect(graphics).toContainText('2:00 PM – 4:30 PM')
+  await expect(graphics.getByText('Rescheduled from 4 Dec 2026.')).toBeVisible()
+  await expect(graphics.getByText('The time and room shown are from the original datesheet. Confirm both with MAIT.')).toBeVisible()
+  const physics = page.locator('.exam-card').filter({ has: page.locator('time[datetime="2026-12-04"]') })
+  await expect(physics).toHaveCount(1)
+  await expect(physics).toContainText('Engineering Physics Lab')
+  await expect(physics).toContainText('Room 515')
+  await expect(physics).toContainText('2:00 PM – 4:30 PM')
 })
 
 test('switching semesters clears the group and shared links include the correct semester', async ({ page, context }) => {

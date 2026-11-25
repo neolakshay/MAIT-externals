@@ -6,7 +6,7 @@ import {
 import '@fontsource-variable/dm-sans/wght.css'
 import { GroupPicker } from './GroupPicker'
 import {
-  formatExamPeriod, formatMonthYear, formatTime, knownGroup, knownSemester, normaliseGroup,
+  formatExamDate, formatExamPeriod, formatMonthYear, formatTime, knownGroup, knownSemester, normaliseGroup,
   schedules, semesters, sourceUrlFor,
 } from './schedule'
 import type { Exam, Semester } from './schedule'
@@ -77,7 +77,7 @@ function groupUrl(code: string, semester: Semester) {
 function ExamCard({ exam, semester }: { exam: Exam; semester: Semester }) {
   const schedule = schedules[semester]
   const course = schedule.courses[exam.course]
-  const fullDate = `${schedule.dates[exam.date]}, ${Number(exam.date.slice(-2))} ${formatMonthYear(exam.date)}`
+  const fullDate = `${schedule.dates[exam.date]}, ${formatExamDate(exam.date)}`
   const venue = exam.venue?.replace(/,\s*/g, ', ')
   let venueText = 'Room not specified'
   if (venue === 'HOD') venueText = 'Venue listed as HOD'
@@ -98,6 +98,12 @@ function ExamCard({ exam, semester }: { exam: Exam; semester: Semester }) {
           <span className="exam-venue"><MapPin size={15} aria-hidden="true" /> <span>{venueText}</span></span>
         </div>
         {exam.assignment && <p className="exam-assignment">{exam.assignment}</p>}
+        {exam.previousDate && (
+          <p className="exam-reschedule">
+            <strong>Rescheduled from {formatExamDate(exam.previousDate)}.</strong>{' '}
+            The time and room shown are from the original datesheet. Confirm both with MAIT.
+          </p>
+        )}
       </div>
       <span className="course-code" aria-label={`Course code ${course.code}`}>{course.code}</span>
     </li>

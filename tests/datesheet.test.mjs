@@ -27,7 +27,7 @@ test('every code in the group legend and the shared table label is represented',
 
 test('all 330 cells match the verified first-semester workbook schedule', () => {
   const rows = Object.entries(data.groups).flatMap(([code, { exams }]) =>
-    exams.map(({ course, date, slot, venue }) => [code, course, date, slot, venue].join('|')),
+    exams.map(({ course, date, previousDate, slot, venue }) => [code, course, previousDate ?? date, slot, venue].join('|')),
   )
   assert.equal(rows.length, 330)
   assert.equal(new Set(rows).size, 330)
@@ -57,7 +57,7 @@ test('printed times, title and course codes are preserved verbatim', () => {
   ])
 })
 
-test('all dates, weekdays and printed slot totals agree and groups are sorted', () => {
+test('all dates, weekdays and revised slot totals agree and groups are sorted', () => {
   const weekday = new Intl.DateTimeFormat('en-GB', { weekday: 'long', timeZone: 'UTC' })
   const dates = [
     '2026-11-26', '2026-11-27', '2026-11-30', '2026-12-01',
@@ -65,7 +65,7 @@ test('all dates, weekdays and printed slot totals agree and groups are sorted', 
   ]
   assert.deepEqual(Object.keys(data.dates), dates)
   const allExams = Object.values(data.groups).flatMap(group => group.exams)
-  const expectedTotals = [15, 15, 15, 15, 14, 12, 12, 12]
+  const expectedTotals = [15, 15, 16, 15, 14, 12, 11, 12]
   for (const [index, date] of dates.entries()) {
     assert.equal(data.dates[date], weekday.format(new Date(date + 'T00:00Z')))
     for (const slot of slotOrder) {
@@ -78,20 +78,21 @@ test('all dates, weekdays and printed slot totals agree and groups are sorted', 
   }
 })
 
-test('the only overlapping cells are the three conflicts in the final workbook', () => {
-  const overlaps = []
+test('only E1–E3 Graphics moved to 30 November, with their original slots and room', () => {
+  const revisedExams = Object.entries(data.groups).flatMap(([code, { exams }]) =>
+    exams.filter(exam => exam.previousDate).map(exam => ({ code, ...exam })),
+  )
+  assert.deepEqual(revisedExams, slotOrder.map((slot, index) => ({
+    code: 'E' + (index + 1), course: 'graphics', date: '2026-11-30', slot, venue: '227',
+    previousDate: '2026-12-04',
+  })))
+})
+
+test('no group has overlapping exam slots after the reschedule', () => {
   for (const [code, { exams }] of Object.entries(data.groups)) {
-    for (let index = 1; index < exams.length; index++) {
-      const before = exams[index - 1]
-      const after = exams[index]
-      if (before.date === after.date && before.slot === after.slot) {
-        overlaps.push([code, before.date, before.slot, [before.course, after.course].sort()])
-      }
-    }
+    const slots = exams.map(({ date, slot }) => `${date}/${slot}`)
+    assert.equal(new Set(slots).size, slots.length, `Overlapping exams for ${code}`)
   }
-  assert.deepEqual(overlaps, slotOrder.map((slot, index) =>
-    ['E' + (index + 1), '2026-12-04', slot, ['graphics', 'physics']],
-  ))
 })
 
 test('similar group codes and the three EE4/ME4 variants have distinct slots', () => {

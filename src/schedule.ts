@@ -10,6 +10,7 @@ export interface Exam {
   venue: string | null
   sourceRow?: number
   assignment?: string
+  previousDate?: string
 }
 
 interface Group {
@@ -78,6 +79,10 @@ export function formatExamPeriod(semester: Semester) {
 
 export function formatMonthYear(date: string) {
   return dateFormat.format(new Date(date + 'T00:00Z'))
+}
+
+export function formatExamDate(date: string) {
+  return `${Number(date.slice(-2))} ${formatMonthYear(date)}`
 }
 
 export function formatTime(slot: string, semester: Semester = '1') {

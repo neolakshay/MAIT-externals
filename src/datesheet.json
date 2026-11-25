@@ -409,30 +409,30 @@
       "branch": "ECE",
       "exams": [
         {"course": "environmental", "date": "2026-11-27", "slot": "FN", "venue": "321-A/321-B"},
+        {"course": "graphics", "date": "2026-11-30", "slot": "FN", "venue": "227", "previousDate": "2026-12-04"},
         {"course": "electrical", "date": "2026-12-01", "slot": "FN", "venue": "616"},
         {"course": "problem-solving", "date": "2026-12-02", "slot": "FN", "venue": "332-A/332-B"},
-        {"course": "physics", "date": "2026-12-04", "slot": "FN", "venue": "515"},
-        {"course": "graphics", "date": "2026-12-04", "slot": "FN", "venue": "227"}
+        {"course": "physics", "date": "2026-12-04", "slot": "FN", "venue": "515"}
       ]
     },
     "E2": {
       "branch": "ECE",
       "exams": [
         {"course": "environmental", "date": "2026-11-27", "slot": "N", "venue": "321-A/321-B"},
+        {"course": "graphics", "date": "2026-11-30", "slot": "N", "venue": "227", "previousDate": "2026-12-04"},
         {"course": "electrical", "date": "2026-12-01", "slot": "N", "venue": "616"},
         {"course": "problem-solving", "date": "2026-12-02", "slot": "N", "venue": "332-A/332-B"},
-        {"course": "physics", "date": "2026-12-04", "slot": "N", "venue": "515"},
-        {"course": "graphics", "date": "2026-12-04", "slot": "N", "venue": "227"}
+        {"course": "physics", "date": "2026-12-04", "slot": "N", "venue": "515"}
       ]
     },
     "E3": {
       "branch": "ECE",
       "exams": [
         {"course": "environmental", "date": "2026-11-27", "slot": "AN", "venue": "321-A/321-B"},
+        {"course": "graphics", "date": "2026-11-30", "slot": "AN", "venue": "227", "previousDate": "2026-12-04"},
         {"course": "electrical", "date": "2026-12-01", "slot": "AN", "venue": "616"},
         {"course": "problem-solving", "date": "2026-12-02", "slot": "AN", "venue": "332-A/332-B"},
-        {"course": "physics", "date": "2026-12-04", "slot": "AN", "venue": "515"},
-        {"course": "graphics", "date": "2026-12-04", "slot": "AN", "venue": "227"}
+        {"course": "physics", "date": "2026-12-04", "slot": "AN", "venue": "515"}
       ]
     },
     "E4": {

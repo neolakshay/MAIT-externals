@@ -1,11 +1,36 @@
-# External Practical Lookup
+# MAIT Externals
 
-A static lookup for MAIT (GGSIPU) B.Tech first-semester students in the 2026–27 academic session. Search by group code to see practical exam dates, times and rooms. The app remembers your group and theme on your device, and each group has a shareable URL such as `?group=C12`.
+Because finding out when you have an exam shouldn't be an exam itself.
 
-Built with React, TypeScript and Vite. The interface uses Material 3 styling, Catppuccin Latte and Mocha themes, and a locally hosted font. Schedule lookup runs in the browser.
+A simple external practical datesheet lookup for MAIT (GGSIPU) B.Tech students, academic session 2026-27.
 
-## Datesheet
+**[Use the website](https://neolakshay.github.io/MAIT-externals/)**
 
-The datesheet we started with was a draft, and it’s been revoked. I’ll update the schedule when the final datesheet is released.
+## What it does
 
-Until then, enjoy the UI :)
+- Look up your practicals by semester and group.
+- View subjects, dates, timings and venues.
+- Share your group's schedule directly via a link.
+- Access the original datesheets.
+- Switch between light and dark themes, because suffering through externals in light mode is optional.
+
+## Datesheet status
+
+| Semester | Status |
+| --- | --- |
+| 1st | Final |
+| 3rd | Final |
+| 5th | Final |
+| 7th | Draft |
+
+This is an unofficial student-made utility. Refer to MAIT's official announcements for any last-minute changes (wouldn't be the first time).
+
+## Under the hood
+
+React, TypeScript and Vite. Material 3-inspired UI with Catppuccin Latte and Mocha themes.
+
+Entirely client-side, no accounts, no backend, no unnecessary nonsense.
+
+Found an incorrect entry? [Open an issue](https://github.com/neolakshay/MAIT-externals/issues/new).
+
+Good luck with your externals :)
